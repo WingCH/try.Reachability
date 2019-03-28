@@ -16,11 +16,14 @@ import Reachability
 /// Protocol for listenig network status change
 public protocol NetworkStatusListener : class {
     func networkStatusDidChange(status: Reachability.Connection)
+    func bssidDidChange(bssid: String)
 }
 
 class ReachabilityManager: NSObject {
     
     static  let shared = ReachabilityManager() // 2. Shared instance
+    
+    var bssidCheckTimer: Timer?
     
     // 3. Boolean to track network reachability
     var isNetworkAvailable : Bool {
@@ -36,17 +39,20 @@ class ReachabilityManager: NSObject {
     // 6. Array of delegates which are interested to listen to network status change
     var listeners = [NetworkStatusListener]()
     
-    
+    var bssids = [String]()
     
     @objc func reachabilityChanged(notification: Notification) {
         let reachability = notification.object as! Reachability
         switch reachability.connection {
         case .none:
             debugPrint("Network became unreachable")
+            stopTimer()
         case .wifi:
-                debugPrint("Network reachable through WiFi")
+            debugPrint("Network reachable through WiFi")
+            startTimer()
         case .cellular:
-                debugPrint("Network reachable through Cellular Data")
+            debugPrint("Network reachable through Cellular Data")
+            stopTimer()
         }
         
         // Sending message to each of the delegates
@@ -69,6 +75,7 @@ class ReachabilityManager: NSObject {
     
     /// Stops monitoring the network availability status
     func stopMonitoring(){
+        stopTimer()
         reachability.stopNotifier()
         NotificationCenter.default.removeObserver(self,
                                                   name: Notification.Name.reachabilityChanged,
@@ -90,5 +97,52 @@ class ReachabilityManager: NSObject {
         listeners = listeners.filter{ $0 !== listener}
     }
     
+    func startTimer() {
+        print("startTimer")
+        if bssidCheckTimer == nil {
+            bssidCheckTimer =  Timer.scheduledTimer(
+                timeInterval: 1,
+                target      : self,
+                selector    : #selector(self.checkBSSID),
+                userInfo    : nil,
+                repeats     : true)
+        }
+    }
+    
+    func stopTimer() {
+        print("stopTimer")
+        if bssidCheckTimer != nil {
+            bssidCheckTimer!.invalidate()
+            bssidCheckTimer = nil
+        }
+    }
+    
+    @objc func checkBSSID() {
+        
+        guard !NetworkInfos.init().getNetworkInfos().isEmpty else{
+            return
+        }
+        
+        let currentBSSID = NetworkInfos.init().getNetworkInfos()[0].bssid
+
+        //第一次
+        if bssids.isEmpty{
+            bssids.append(currentBSSID)
+            for listener in listeners {
+                listener.bssidDidChange(bssid: currentBSSID)
+            }
+        }else{
+            if let lastBSSID = bssids.last {
+                //如果當前bssid同最新list個bssid唔同
+                if currentBSSID != lastBSSID{
+                    bssids.append(currentBSSID)
+                    for listener in listeners {
+                        listener.bssidDidChange(bssid: currentBSSID)
+                    }
+                }
+            }
+        }
+        
+    }
 }
 
