@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20CF8B74224C63BF000CE216 /* NetworkInfos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF8B73224C63BF000CE216 /* NetworkInfos.swift */; };
+		20F14DFA224C7FFB0073FFD4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 20F14DF9224C7FFA0073FFD4 /* README.md */; };
 		20F7321D2248904D00961ACA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7321C2248904D00961ACA /* AppDelegate.swift */; };
 		20F7321F2248904D00961ACA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7321E2248904D00961ACA /* ViewController.swift */; };
 		20F732222248904D00961ACA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20F732202248904D00961ACA /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 		145E7F14DAFB2B84EF2B0B0B /* Pods_try_Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_try_Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20CF8B72224C6199000CE216 /* try.Reachability.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = try.Reachability.entitlements; sourceTree = "<group>"; };
 		20CF8B73224C63BF000CE216 /* NetworkInfos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfos.swift; sourceTree = "<group>"; };
+		20F14DF9224C7FFA0073FFD4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20F732192248904D00961ACA /* try.Reachability.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = try.Reachability.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20F7321C2248904D00961ACA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20F7321E2248904D00961ACA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 		20F732102248904D00961ACA = {
 			isa = PBXGroup;
 			children = (
+				20F14DF9224C7FFA0073FFD4 /* README.md */,
 				20F7321B2248904D00961ACA /* try.Reachability */,
 				20F7321A2248904D00961ACA /* Products */,
 				8F94648B63D455F72B03FC36 /* Pods */,
@@ -164,6 +167,7 @@
 			files = (
 				20F732272248904E00961ACA /* LaunchScreen.storyboard in Resources */,
 				20F732242248904E00961ACA /* Assets.xcassets in Resources */,
+				20F14DFA224C7FFB0073FFD4 /* README.md in Resources */,
 				20F732222248904D00961ACA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
